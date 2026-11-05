@@ -14,13 +14,15 @@ step. The full rationale and threat model are in
 
 ## Design
 
-```
-┌────────────┐   MCP / Streamable HTTP    ┌──────────────────────────────────────────────┐
-│ LLM client │ ──────────────────────────▶│ Blender + Blender Safe MCP addon             │
-│            │  POST /mcp, Bearer <key>   │                                              │
-│            │ ◀────────────────────────── │ HTTP threads ─▶ work queue ─▶ main thread    │
-└────────────┘   JSON text + PNG images   │ (auth, limits)                (guard ─▶ op)  │
-                                          └──────────────────────────────────────────────┘
+```mermaid
+flowchart LR
+    client["LLM client"]
+    subgraph blender["Blender + Blender Safe MCP addon"]
+        direction LR
+        http["HTTP threads<br/>(auth, limits)"] --> queue["work queue"] --> main["main thread<br/>(guard, then op)"]
+    end
+    client -- "MCP over Streamable HTTP<br/>POST /mcp, Bearer key" --> http
+    main -. "JSON text + PNG images" .-> client
 ```
 
 There is no separate server or helper process: the MCP client connects straight to Blender, and the addon
