@@ -1,0 +1,15 @@
+# contains the Blender Safe MCP API key
+/.mcp.json
+# per-user Claude Code settings
+/.claude/settings.local.json
+
+# personal, machine-specific Claude Code notes
+/CLAUDE.local.md
+/local/
+
+# build artifact: rebuilt from blender_safe_mcp after every change
+/blender_safe_mcp.zip
+
+__pycache__/
+*.pyc
+.venv/

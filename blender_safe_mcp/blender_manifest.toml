@@ -1,0 +1,13 @@
+schema_version = "1.0.0"
+
+id = "blender_safe_mcp"
+version = "0.1.0"
+name = "Blender Safe MCP"
+tagline = "MCP server without Python execution, file paths or URLs"
+maintainer = "Roberto Piva"
+type = "add-on"
+blender_version_min = "4.2.0"
+license = ["SPDX:GPL-3.0-or-later"]
+
+[permissions]
+network = "Listens on a TCP port (127.0.0.1 by default) for authenticated MCP clients"
