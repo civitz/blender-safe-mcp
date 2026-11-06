@@ -1,0 +1,12 @@
+{
+  "name": "blender-safe-mcp",
+  "description": "Blender Safe MCP: drive a live Blender without Python execution, file paths or URLs",
+  "owner": {"name": "Roberto Piva", "url": "https://github.com/civitz"},
+  "plugins": [
+    {
+      "name": "blender-safe-mcp",
+      "source": "./plugin",
+      "description": "MCP client config for the Blender Safe MCP addon, plus a skill that guides Claude through it"
+    }
+  ]
+}

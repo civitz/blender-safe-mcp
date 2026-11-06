@@ -1,0 +1,17 @@
+#!/bin/sh
+# headersHelper for the Blender Safe MCP server: prints the Authorization header built from the
+# key the addon stores (blender_safe_mcp/keystore.py), so the key is never copied into Claude
+# Code's settings. Claude Code re-runs it on 401, which picks up a regenerated key.
+set -eu
+
+file="${XDG_CONFIG_HOME:-$HOME/.config}/blender-safe-mcp/api_key"
+
+fail() {
+    echo "blender-safe-mcp: $1. In Blender, open the 3D view sidebar (N) > Blender Safe MCP and press Start server." >&2
+    exit 1
+}
+
+[ -f "$file" ] && [ ! -L "$file" ] || fail "no API key file at $file"
+key=$(head -c 256 "$file" | tr -d '\r\n')
+printf '%s' "$key" | LC_ALL=C grep -Eqx '[A-Za-z0-9_-]{32,128}' || fail "malformed API key file $file"
+printf '{"Authorization": "Bearer %s"}\n' "$key"
