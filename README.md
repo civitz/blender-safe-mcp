@@ -103,8 +103,8 @@ smoke test fails when it is out of date.
    to edit; it's read-only by default (and reinstalling the addon turns it off again). If the
    panel warns about *Auto Run Python Scripts*, disable it: the addon refuses to work while it's
    on.
-3. **Client**: the panel's **Copy 'claude mcp add'** button gives a ready command, or put this in
-   `.mcp.json`:
+3. **Client**: for Claude Code, install the plugin in `plugin/` (see below). Otherwise the
+   panel's **Copy 'claude mcp add'** button gives a ready command, or put this in `.mcp.json`:
 
 ```json
 {
@@ -124,6 +124,29 @@ the file; a literal key works too. The key lives in `$XDG_CONFIG_HOME/blender-sa
 addon reinstalls and Blender upgrades. **Regenerate key** replaces it, effective immediately.
 
 Bind address and port are in the addon preferences.
+
+### Claude Code plugin
+
+This repository is also a Claude Code plugin marketplace. The `blender-safe-mcp` plugin in
+`plugin/` contains:
+
+- the MCP client config: an HTTP server named `blender`. Its `headersHelper`
+  (`plugin/bin/auth-header`) reads the key file above on each connection, so you never copy the
+  key into Claude Code, and a regenerated key is picked up on the next reconnect;
+- the `blender` skill, which Claude loads by itself for Blender work (or run
+  `/blender-safe-mcp:blender`). It covers the work loop, selectors, budgets, undo and what each
+  error code means.
+
+```text
+/plugin install blender-safe-mcp --marketplace civitz/blender-safe-mcp
+```
+
+On Claude Code older than 2.1.275, run `/plugin marketplace add civitz/blender-safe-mcp`
+first, then `/plugin install blender-safe-mcp@blender-safe-mcp`. From a local checkout, use
+`claude plugin marketplace add ./` instead. The server URL defaults to
+`http://127.0.0.1:9877/mcp`; change it under the plugin's options in `/config` if you changed the
+bind address or port. The helper is a POSIX shell script that reads
+`$XDG_CONFIG_HOME` (default `~/.config`), so on Windows use the `.mcp.json` config above.
 
 ## Protocol
 
