@@ -1,0 +1,18 @@
+{
+  "name": "blender-safe-mcp",
+  "displayName": "Blender Safe MCP",
+  "version": "0.1.0",
+  "description": "Connects Claude Code to the Blender Safe MCP addon and teaches Claude how to use its tools safely",
+  "author": {"name": "Roberto Piva", "url": "https://github.com/civitz"},
+  "repository": "https://github.com/civitz/blender-safe-mcp",
+  "license": "GPL-3.0-or-later",
+  "keywords": ["blender", "3d", "mcp"],
+  "userConfig": {
+    "url": {
+      "type": "string",
+      "title": "Server URL",
+      "description": "MCP endpoint shown in Blender's Blender Safe MCP sidebar panel (bind address and port are in the addon preferences)",
+      "default": "http://127.0.0.1:9877/mcp"
+    }
+  }
+}

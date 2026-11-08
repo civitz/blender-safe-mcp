@@ -16,6 +16,10 @@ live Blender **without any Python execution, file paths or URLs**. About 100 ops
   (run inside Blender), and `gen_tools_md.py` (generates `TOOLS.md`).
 - `TOOLS.md`: **generated** reference with one entry per tool. Never edit it by hand.
 - `TODO.md`: open decisions, defaults chosen by agents, known issues.
+- `plugin/`: the Claude Code plugin (MCP client config with a `headersHelper` that reads the key
+  file, and the `blender` guide skill); `.claude-plugin/marketplace.json` makes the repo its
+  marketplace. `tests/test_plugin.py` fails if the skill names a tool, parameter or error code
+  that doesn't exist.
 
 ## Commands
 
@@ -131,7 +135,8 @@ Checklist for an op: schema + op function; a section in `tests/blender_smoke.py`
 called through `registry.dispatch`, plus refusal cases with `expect`); a place in `GROUPS` in
 `tests/gen_tools_md.py` and a regenerated `TOOLS.md`; pytest, pyflakes and py_compile pass;
 rebuilt `blender_safe_mcp.zip`; README limitations and this file updated if behaviour or
-architecture changed.
+architecture changed; `plugin/skills/blender/SKILL.md` updated if the op changes how an agent
+should work (and after renaming an op it names).
 
 ## Ideas not built
 

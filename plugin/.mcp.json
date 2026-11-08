@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "blender": {
+      "type": "http",
+      "url": "${user_config.url}",
+      "headersHelper": "${CLAUDE_PLUGIN_ROOT}/bin/auth-header"
+    }
+  }
+}
